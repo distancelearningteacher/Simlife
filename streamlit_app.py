@@ -106,15 +106,25 @@ st.write(f"### {current['text']}")
 # Options Logic
 for option in current["options"]:
     if st.button(option["label"], use_container_width=True):
-        # Update Stats based on the JSON choice
+        # 1. Update Player Stats
         st.session_state.stats["xp"] += option.get("xp", 0)
         st.session_state.stats["magic"] += option.get("magic", 0)
         st.session_state.stats["suspicion"] += option.get("suspicion", 0)
         
-        # Clamp Magic so it doesn't exceed max or go below 0
-        st.session_state.stats["magic"] = max(0, min(st.session_state.stats["magic"], st.session_state.stats["max_magic"]))
-        
-        # Change Scene
+        # 2. Update NPC Stats (New Logic)
+        if "npc" in option:
+            npc_name = option["npc"]
+            stat_to_change = option["stat_change"]
+            amount = option["val"]
+            
+            # This changes the stat inside our data dictionary
+            data["npcs"][npc_name]["stats"][stat_to_change] += amount
+            
+            # Logic: If Mind Altered > 5, change mood to "altered"
+            if data["npcs"][npc_name]["stats"].get("mind_altered", 0) > 5:
+                 data["npcs"][npc_name]["current_mood"] = "altered"
+
+        # 3. Change Scene
         st.session_state.stats["scene"] = option["target"]
         st.rerun()
 
