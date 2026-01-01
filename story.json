@@ -1,39 +1,23 @@
 {
-    "room": {
-        "text": "You are in your room. You can perform magic on yourself.",
-        "media": "assets/grok_video_2025-12-31-18-14-00.mp4",
-        "is_video": false,
-        "options": [
-            {
-                "label": "Alter your mind", 
-                "target": "self_mind",
-                "xp": 0, "magic": 0, "suspicion": 0
-            },
-            {
-                "label": "Alter your body", 
-                "target": "self_body",
-                "xp": 0, "magic": 0, "suspicion": 0
-            },
-            {
-                "label": "Travel", 
-                "target": "travel",
-                "xp": 0, "magic": 0, "suspicion": 0
-            }
-        ]
+    "story": {
+        "start": {
+            "text": "You meet a mysterious merchant named Thorne.",
+            "media": "merchant_shop.jpg",
+            "is_video": false,
+            "options": [{"label": "Talk", "target": "start"}]
+        }
     },
-    "travel":{
-        "text": "Where do you go?",
-        "media": "assets/grok_video_2025-12-31-18-14-00.mp4",
-        "is_video": true,
-        "options": [
-            {
-                "label": "Check in on your step mom", 
-                "target": "step_mom",
-                "xp": 0, "magic": 0, "suspicion": 0
+    "npcs": {
+        "Thorne": {
+            "bio": "A shady merchant with a heart of gold.",
+            "images": {
+                "base": "thorne_base.png",
+                "happy": "thorne_happy.png"
             },
-            {
-                "label": "Visit your neighbor", 
-                "target": "neighbor",
+            "current_mood": "base"
+        }
+    }
+}
                 "xp": 0, "magic": 0, "suspicion": 0
             },
             {
