@@ -1,30 +1,39 @@
 {
     "story": {
-        "start": {
-            "text": "You meet a mysterious merchant named Thorne.",
-            "media": "merchant_shop.jpg",
-            "is_video": false,
-            "options": [{"label": "Talk", "target": "start"}]
+        "players_room": {
+            "text": "Your sanctuary. Ancient books are scattered across the floor.",
+            "media": "assets/room.mp4", "is_video": true,
+            "options": [
+                {"label": "✨ Alter Mind (Self)", "target": "players_room", "xp": 5, "magic": -10},
+                {"label": "💤 Sleep (Restore Magic)", "target": "players_room", "magic": 50},
+                {"label": "🚶 Travel", "target": "map_screen"}
+            ]
+        },
+        "step_mom_house": {
+            "text": "Your step-mom is in the kitchen. She hasn't noticed you yet.",
+            "media": "assets/kitchen.jpg", "is_video": false,
+            "options": [
+                {"label": "💬 Talk", "target": "step_mom_talk", "xp": 1},
+                {"label": "🧠 Alter Mind", "target": "step_mom_house", "npc": "Step-Mom", "stat_change": "mind_altered", "val": 1, "suspicion": 5},
+                {"label": "🚶 Travel", "target": "map_screen"}
+            ]
+        },
+        "map_screen": {
+            "text": "Where do you want to go?",
+            "media": "assets/map.jpg", "is_video": false,
+            "options": [
+                {"label": "🏠 My Room", "target": "players_room"},
+                {"label": "👩 Step-Mom's House", "target": "step_mom_house"},
+                {"label": "☕ Coffee Shop", "target": "coffee_shop"}
+            ]
         }
     },
     "npcs": {
-        "Thorne": {
-            "bio": "A shady merchant with a heart of gold.",
-            "images": {
-                "base": "thorne_base.png",
-                "happy": "thorne_happy.png"
-            },
+        "Step-Mom": {
+            "bio": "She seems preoccupied lately.",
+            "stats": {"affection": 0, "mind_altered": 0},
+            "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
             "current_mood": "base"
         }
-    }
-}
-                "xp": 0, "magic": 0, "suspicion": 0
-            },
-            {
-                "label": "Hit up the coffee shop", 
-                "target": "coffee_shop",
-                "xp": 0, "magic": 0, "suspicion": 0
-            }
-        ]
     }
 }
