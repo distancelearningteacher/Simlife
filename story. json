@@ -1,23 +1,45 @@
 {
-    "start": {
-        "text": "You stand before the forbidden library. The guards are looking the other way.",
+    "room": {
+        "text": "You are in your room. You can perform magic on yourself.",
         "media": "library_entrance.jpg",
         "is_video": false,
         "options": [
             {
-                "label": "Sneak inside", 
-                "target": "library_interior",
-                "xp": 2, "magic": 0, "suspicion": 5
+                "label": "Alter your mind", 
+                "target": "self_mind",
+                "xp": 0, "magic": 0, "suspicion": 0
             },
             {
-                "label": "Cast a distraction spell", 
-                "target": "library_interior",
-                "xp": 5, "magic": -10, "suspicion": 2
+                "label": "Alter your body", 
+                "target": "self_body",
+                "xp": 0, "magic": 0, "suspicion": 0
             },
             {
-                "label": "Walk away", 
-                "target": "start",
-                "xp": 0, "magic": 0, "suspicion": -1
+                "label": "Travel", 
+                "target": "travel",
+                "xp": 0, "magic": 0, "suspicion": 0
+            }
+        ]
+    }
+    "travel":{
+        "text": "Where do you go?",
+        "media": "library_entrance.jpg",
+        "is_video": false,
+        "options": [
+            {
+                "label": "Check in on your step mom", 
+                "target": "step_mom",
+                "xp": 0, "magic": 0, "suspicion": 0
+            },
+            {
+                "label": "Visit your neighbor", 
+                "target": "neighbor",
+                "xp": 0, "magic": 0, "suspicion": 0
+            },
+            {
+                "label": "Hit up the coffee shop", 
+                "target": "coffee_shop",
+                "xp": 0, "magic": 0, "suspicion": 0
             }
         ]
     }
