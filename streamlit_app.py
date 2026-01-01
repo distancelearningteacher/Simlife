@@ -1,39 +1,75 @@
 import streamlit as st
+import json
 
-# --- 1. SET UP THE PAGE ---
-st.set_page_config(page_title="My Adventure", layout="centered")
+# --- 1. SETUP ---
+st.set_page_config(page_title="Mage Quest", layout="centered")
 
-# --- 2. THE STORY DATA (The "JSON-like" part) ---
-# You can easily move this to an external .json file later!
-story = {
-    "start": {
-        "text": "You open the strange book and find two sections: Self and Others.",
-        "image": "https://porngipfy.com/wp-content/uploads/2018/09/august-ames_001.gif", # Replace with your URL or local path
-        "options": [
-            {"label": "Flip to self.", "target": "self"},
-            {"label": "Flip to others.", "target": "others"},
-            {"label": "Throw the book away.", "target": "start"}
-        ]
-    },
-    "self": {
-        "text": "This section has spells to alter yourself.",
-        "image": "assets/grok_video_2025-12-31-18-14-00.mp4",
-        "options": [
-            {"label": "Light a torch", "target": "start"},
-            {"label": "Step inside", "target": "start"},
-            {"label": "Close the door", "target": "start"}
-        ]
-    },
-    "others": {
-        "text": "This section has spells to alter others.",
-        "image": "https://placekitten.com/802/400",
-        "options": [
-            {"label": "Take it", "target": "start"},
-            {"label": "Leave it", "target": "start"},
-            {"label": "Smash it", "target": "start"}
-        ]
+# --- 2. INITIALIZE GLOBAL STATS (The "Autoload") ---
+if "stats" not in st.session_state:
+    st.session_state.stats = {
+        "xp": 0,
+        "magic": 50,
+        "max_magic": 50,
+        "suspicion": 0,
+        "scene": "start"
     }
-}
+
+# --- 3. CALCULATE LEVEL ---
+# Level 1 = 0-9 XP, Level 2 = 10-19 XP, etc.
+current_level = (st.session_state.stats["xp"] // 10) + 1
+
+# --- 4. SIDEBAR (The Collapsing Bar) ---
+with st.sidebar:
+    st.title("🧙‍♂️ Character Sheet")
+    st.metric("Level", current_level)
+    
+    # Progress bar for XP
+    xp_progress = (st.session_state.stats["xp"] % 10) / 10
+    st.write(f"XP: {st.session_state.stats['xp'] % 10} / 10")
+    st.progress(xp_progress)
+    
+    st.divider()
+    
+    # Magic and Suspicion
+    st.write(f"✨ Magic: {st.session_state.stats['magic']} / {st.session_state.stats['max_magic']}")
+    st.write(f"🕵️ Suspicion: {st.session_state.stats['suspicion']}")
+    
+    if st.button("Reset Game"):
+        st.session_state.clear()
+        st.rerun()
+
+# --- 5. LOAD STORY ---
+def load_story():
+    with open("story.json", "r") as f:
+        return json.load(f)
+
+story = load_story()
+current = story[st.session_state.stats["scene"]]
+
+# --- 6. RENDER ENGINE ---
+# Media
+if current.get("is_video"):
+    st.video(current["media"], autoplay=True, loop=True, muted=True)
+else:
+    st.image(current["media"], use_container_width=True)
+
+# Scene Text
+st.write(f"### {current['text']}")
+
+# Options Logic
+for option in current["options"]:
+    if st.button(option["label"], use_container_width=True):
+        # Update Stats based on the JSON choice
+        st.session_state.stats["xp"] += option.get("xp", 0)
+        st.session_state.stats["magic"] += option.get("magic", 0)
+        st.session_state.stats["suspicion"] += option.get("suspicion", 0)
+        
+        # Clamp Magic so it doesn't exceed max or go below 0
+        st.session_state.stats["magic"] = max(0, min(st.session_state.stats["magic"], st.session_state.stats["max_magic"]))
+        
+        # Change Scene
+        st.session_state.stats["scene"] = option["target"]
+        st.rerun()
 
 # --- 3. GAME ENGINE (The Logic) ---
 # Initialize the "Autoload" state
