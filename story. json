@@ -1,1 +1,29 @@
-
+{
+    "start": {
+        "text": "You open the strange book and find two sections: Self and Others.",
+        "image": "https://porngipfy.com/wp-content/uploads/2018/09/august-ames_001.gif", # Replace with your URL or local path
+        "options": [
+            {"label": "Flip to self.", "target": "self"},
+            {"label": "Flip to others.", "target": "others"},
+            {"label": "Throw the book away.", "target": "start"}
+        ]
+    },
+    "self": {
+        "text": "This section has spells to alter yourself.",
+        "image": "assets/grok_video_2025-12-31-18-14-00.mp4",
+        "options": [
+            {"label": "Light a torch", "target": "start"},
+            {"label": "Step inside", "target": "start"},
+            {"label": "Close the door", "target": "start"}
+        ]
+    },
+    "others": {
+        "text": "This section has spells to alter others.",
+        "image": "https://placekitten.com/802/400",
+        "options": [
+            {"label": "Take it", "target": "start"},
+            {"label": "Leave it", "target": "start"},
+            {"label": "Smash it", "target": "start"}
+        ]
+    }
+}
