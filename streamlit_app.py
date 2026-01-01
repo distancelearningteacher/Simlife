@@ -17,7 +17,7 @@ story = {
     },
     "cave": {
         "text": "The door creaks open. It's pitch black inside. You hear a low growl.",
-        "image": "https://placekitten.com/801/400",
+        "image": "assets/grok_video_2025-12-31-18-14-00.mp4,
         "options": [
             {"label": "Light a torch", "target": "start"},
             {"label": "Step inside", "target": "start"},
