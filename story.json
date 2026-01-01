@@ -1,8 +1,8 @@
 {
     "room": {
         "text": "You are in your room. You can perform magic on yourself.",
-        "media": "library_entrance.jpg",
-        "is_video": false,
+        "media": "assets/grok_video_2025-12-31-18-14-00.mp4",
+        "is_video": true,
         "options": [
             {
                 "label": "Alter your mind", 
@@ -23,8 +23,8 @@
     },
     "travel":{
         "text": "Where do you go?",
-        "media": "library_entrance.jpg",
-        "is_video": false,
+        "media": "assets/grok_video_2025-12-31-18-14-00.mp4",
+        "is_video": true,
         "options": [
             {
                 "label": "Check in on your step mom", 
