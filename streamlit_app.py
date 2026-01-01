@@ -7,16 +7,16 @@ st.set_page_config(page_title="My Adventure", layout="centered")
 # You can easily move this to an external .json file later!
 story = {
     "start": {
-        "text": "You stand before a massive stone door in the Godot Forest.",
+        "text": "You open the strange book and find two sections: Self and Others.",
         "image": "https://porngipfy.com/wp-content/uploads/2018/09/august-ames_001.gif", # Replace with your URL or local path
         "options": [
-            {"label": "Push the door", "target": "cave"},
-            {"label": "Search the bushes", "target": "item_found"},
-            {"label": "Run away", "target": "start"}
+            {"label": "Flip to self.", "target": "self"},
+            {"label": "Flip to others.", "target": "others"},
+            {"label": "Throw the book away.", "target": "start"}
         ]
     },
-    "cave": {
-        "text": "The door creaks open. It's pitch black inside. You hear a low growl.",
+    "self": {
+        "text": "This section has spells to alter yourself.",
         "image": "assets/grok_video_2025-12-31-18-14-00.mp4",
         "options": [
             {"label": "Light a torch", "target": "start"},
@@ -24,8 +24,8 @@ story = {
             {"label": "Close the door", "target": "start"}
         ]
     },
-    "item_found": {
-        "text": "You found a glowing blue crystal! It feels warm to the touch.",
+    "others": {
+        "text": "This section has spells to alter others.",
         "image": "https://placekitten.com/802/400",
         "options": [
             {"label": "Take it", "target": "start"},
