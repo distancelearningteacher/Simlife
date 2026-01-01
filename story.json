@@ -9,12 +9,30 @@
                 {"label": "🚶 Travel", "target": "map_screen"}
             ]
         },
-        "step_mom_house": {
+        "step_mom_check": {
             "text": "Your step-mom is in the kitchen. She hasn't noticed you yet.",
             "media": "assets/kitchen.jpg", "is_video": false,
             "options": [
                 {"label": "💬 Talk", "target": "step_mom_talk", "xp": 1},
-                {"label": "🧠 Alter Mind", "target": "step_mom_house", "npc": "Step-Mom", "stat_change": "mind_altered", "val": 1, "suspicion": 5},
+                {"label": "🧠 Alter Mind", "target": "step_mom_check", "npc": "Step-Mom", "stat_change": "mind_altered", "val": 1, "suspicion": 5},
+                {"label": "🚶 Travel", "target": "map_screen"}
+            ]
+        },
+        "neighbor_check": {
+            "text": "Your neighbor has just gotten back from a jog.",
+            "media": "assets/kitchen.jpg", "is_video": false,
+            "options": [
+                {"label": "💬 Talk", "target": "neighbor_talk", "xp": 1},
+                {"label": "🧠 Alter Mind", "target": "neighbor_check", "npc": "neighbor", "stat_change": "mind_altered", "val": 1, "suspicion": 5},
+                {"label": "🚶 Travel", "target": "map_screen"}
+            ]
+        },
+        "coffee_shop": {
+            "text": "The local coffee spot. Usually pretty busy.",
+            "media": "assets/kitchen.jpg", "is_video": false,
+            "options": [
+                {"label": "💬 Talk", "target": "barista_talk", "xp": 1},
+                {"label": "🧠 Alter Mind", "target": "coffee_shop", "npc": "barista", "stat_change": "mind_altered", "val": 1, "suspicion": 5},
                 {"label": "🚶 Travel", "target": "map_screen"}
             ]
         },
@@ -23,13 +41,23 @@
             "media": "assets/map.jpg", "is_video": false,
             "options": [
                 {"label": "🏠 My Room", "target": "players_room"},
-                {"label": "👩 Step-Mom's House", "target": "step_mom_house"},
-                {"label": "☕ Coffee Shop", "target": "coffee_shop"}
+                {"label": "👩 Step-Mom", "target": "step_mom_check"},
+                {"label": "☕ Coffee Shop", "target": "coffee_shop"},
+                {"label": "🧘‍♀️ Neighbor", "target": "neighbor_check"}
             ]
         }
     },
     "npcs": {
         "Step-Mom": {
+            "name": "Kim",
+            "bio": "She seems preoccupied lately.",
+            "stats": {"affection": 0, "mind_altered": 0, "physical": 0},
+            "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
+            "current_mood": "base"
+        },
+        {
+        "neighbor": {
+            "name": "Sury",
             "bio": "She seems preoccupied lately.",
             "stats": {"affection": 0, "mind_altered": 0, "physical": 0},
             "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
