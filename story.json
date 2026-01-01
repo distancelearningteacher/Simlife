@@ -1,8 +1,8 @@
 {
     "room": {
         "text": "You are in your room. You can perform magic on yourself.",
-        "media": "assets/grok_video_2025-12-31-18-14-00.mp4",
-        "is_video": true,
+        "media": "https://grok.com/imagine/post/13b460b5-8005-49de-be2f-ccaf5a8a4bbc?source=copy_link&platform=android",
+        "is_video": false,
         "options": [
             {
                 "label": "Alter your mind", 
