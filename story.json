@@ -2,7 +2,7 @@
     "story": {
         "players_room": {
             "text": "Your sanctuary. Ancient books are scattered across the floor.",
-            "media": "assets/room.mp4", "is_video": true,
+            "media": "assets/grok_image_x19cgqm.jpg", "is_video": false,
             "options": [
                 {"label": "✨ Alter Mind (Self)", "target": "players_room", "xp": 5, "magic": -10},
                 {"label": "💤 Sleep (Restore Magic)", "target": "players_room", "magic": 50},
@@ -11,7 +11,7 @@
         },
         "step_mom_check": {
             "text": "Your step-mom is in the kitchen. She hasn't noticed you yet.",
-            "media": "assets/kitchen.jpg", "is_video": false,
+            "media": "assets/grok_image_x19cgqm.jpg", "is_video": false,
             "options": [
                 {"label": "💬 Talk", "target": "step_mom_talk", "xp": 1},
                 {"label": "🧠 Alter Mind", "target": "step_mom_check", "npc": "Step-Mom", "stat_change": "mind_altered", "val": 1, "suspicion": 5},
@@ -20,7 +20,7 @@
         },
         "neighbor_check": {
             "text": "Your neighbor has just gotten back from a jog.",
-            "media": "assets/kitchen.jpg", "is_video": false,
+            "media": "assets/grok_image_x19cgqm.jpg", "is_video": false,
             "options": [
                 {"label": "💬 Talk", "target": "neighbor_talk", "xp": 1},
                 {"label": "🧠 Alter Mind", "target": "neighbor_check", "npc": "neighbor", "stat_change": "mind_altered", "val": 1, "suspicion": 5},
@@ -29,7 +29,7 @@
         },
         "coffee_shop": {
             "text": "The local coffee spot. Usually pretty busy.",
-            "media": "assets/kitchen.jpg", "is_video": false,
+            "media": "assets/grok_image_x19cgqm.jpg", "is_video": false,
             "options": [
                 {"label": "💬 Talk", "target": "barista_talk", "xp": 1},
                 {"label": "🧠 Alter Mind", "target": "coffee_shop", "npc": "barista", "stat_change": "mind_altered", "val": 1, "suspicion": 5},
@@ -38,7 +38,7 @@
         },
         "map_screen": {
             "text": "Where do you want to go?",
-            "media": "assets/map.jpg", "is_video": false,
+            "media": "assets/grok_image_x19cgqm.jpg", "is_video": false,
             "options": [
                 {"label": "🏠 My Room", "target": "players_room"},
                 {"label": "👩 Step-Mom", "target": "step_mom_check"},
@@ -48,7 +48,7 @@
         },
         "start": {
             "text": "Welcome to Mage Quest. Begin your journey.",
-            "media": "assets/map.jpg", "is_video": false,
+            "media": "assets/grok_image_x19cgqm.jpg", "is_video": false,
             "options": [{"label": "Start", "target": "players_room"}]
         }
     },
@@ -57,21 +57,21 @@
             "name": "Kim",
             "bio": "She seems preoccupied lately.",
             "stats": {"affection": 0, "mind_altered": 0, "physical": 0},
-            "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
+            "images": {"base": "assets/grok_image_x19cgqm.jpg", "altered": "assets/grok_image_x19cgqm.jpg"},
             "current_mood": "base"
         },
         "neighbor": {
             "name": "Sury",
             "bio": "The girl next door.",
             "stats": {"affection": 0, "mind_altered": 0, "physical": 0},
-            "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
+            "images": {"base": "assets/grok_image_x19cgqm.jpg", "altered": "assets/grok_image_x19cgqm.jpg"},
             "current_mood": "base"
         },
         "barista": {
             "name": "Alex",
             "bio": "Always busy with coffee.",
             "stats": {"affection": 0, "mind_altered": 0},
-            "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
+            "images": {"base": "assets/grok_image_x19cgqm.jpg", "altered": "assets/grok_image_x19cgqm.jpg"},
             "current_mood": "base"
         }
     }
