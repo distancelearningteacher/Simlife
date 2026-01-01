@@ -20,7 +20,7 @@
                 "xp": 0, "magic": 0, "suspicion": 0
             }
         ]
-    }
+    },
     "travel":{
         "text": "Where do you go?",
         "media": "library_entrance.jpg",
