@@ -1,39 +1,86 @@
 import streamlit as st
 import json
+import os
 
-# --- 1. SETUP ---
+# --- 1. SETUP & DATA ---
 st.set_page_config(page_title="Mage Quest", layout="centered")
 
-# --- 2. INITIALIZE GLOBAL STATS (The "Autoload") ---
+def load_data():
+    with open("story.json", "r") as f:
+        return json.load(f)
+
+data = load_data()
+
+# --- 2. INITIALIZE STATE ---
 if "stats" not in st.session_state:
     st.session_state.stats = {
-        "xp": 0,
-        "magic": 50,
-        "max_magic": 50,
-        "suspicion": 0,
-        "scene": "room"
+        "xp": 0, "magic": 50, "max_magic": 50, "suspicion": 0,
+        "scene": "start",
+        "view_mode": "GAME",  # Can be "GAME", "NPC_LIST", or "NPC_DETAIL"
+        "selected_npc": None
     }
 
-# --- 3. CALCULATE LEVEL ---
-# Level 1 = 0-9 XP, Level 2 = 10-19 XP, etc.
-current_level = (st.session_state.stats["xp"] // 10) + 1
-
-# --- 4. SIDEBAR (The Collapsing Bar) ---
+# --- 3. SIDEBAR MENU ---
 with st.sidebar:
-    st.title("🧙‍♂️ Character Sheet")
-    st.metric("Level", current_level)
-    
-    # Progress bar for XP
-    xp_progress = (st.session_state.stats["xp"] % 10) / 10
-    st.write(f"XP: {st.session_state.stats['xp'] % 10} / 10")
-    st.progress(xp_progress)
+    st.title("📜 Game Menu")
+    if st.button("👥 NPC Journal", use_container_width=True):
+        st.session_state.stats["view_mode"] = "NPC_LIST"
+        st.rerun()
     
     st.divider()
-    
-    # Magic and Suspicion
-    st.write(f"✨ Magic: {st.session_state.stats['magic']} / {st.session_state.stats['max_magic']}")
+    st.write(f"✨ Magic: {st.session_state.stats['magic']}")
     st.write(f"🕵️ Suspicion: {st.session_state.stats['suspicion']}")
+
+# --- 4. TOP NAVIGATION (Return Button) ---
+if st.session_state.stats["view_mode"] != "GAME":
+    col1, col2 = st.columns([4, 1])
+    with col2:
+        if st.button("🔙 Back"):
+            st.session_state.stats["view_mode"] = "GAME"
+            st.rerun()
+
+# --- 5. RENDER LOGIC ---
+
+# MODE A: NPC LIST
+if st.session_state.stats["view_mode"] == "NPC_LIST":
+    st.header("Characters Met")
+    for npc_name in data["npcs"].keys():
+        if st.button(npc_name, use_container_width=True):
+            st.session_state.stats["selected_npc"] = npc_name
+            st.session_state.stats["view_mode"] = "NPC_DETAIL"
+            st.rerun()
+
+# MODE B: NPC DETAIL
+elif st.session_state.stats["view_mode"] == "NPC_DETAIL":
+    npc_name = st.session_state.stats["selected_npc"]
+    npc_data = data["npcs"][npc_name]
     
+    st.header(npc_name)
+    
+    # Logic for dynamic image selection
+    mood = npc_data["current_mood"]
+    img_path = npc_data["images"][mood]
+    
+    if os.path.exists(img_path) or img_path.startswith("http"):
+        st.image(img_path, width=300)
+    else:
+        st.warning(f"Image not found: {img_path}")
+        
+    st.write(npc_data["bio"])
+
+# MODE C: MAIN GAME
+else:
+    scene_key = st.session_state.stats["scene"]
+    current = data["story"][scene_key]
+    
+    # (Your existing media and button rendering code goes here)
+    st.image(current["media"], use_container_width=True)
+    st.write(f"### {current['text']}")
+    
+    for option in current["options"]:
+        if st.button(option["label"], key=option["label"], use_container_width=True):
+            st.session_state.stats["scene"] = option["target"]
+            st.rerun()
     if st.button("Reset Game"):
         st.session_state.clear()
         st.rerun()
