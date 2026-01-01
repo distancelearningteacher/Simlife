@@ -5,32 +5,32 @@ import os
 # --- 1. SETUP & DATA LOADING ---
 st.set_page_config(page_title="Mage Quest", layout="centered")
 
-def load_data():
-    with open("story.json", "r") as f:
+def load_json(filename):
+    with open(filename, "r") as f:
         return json.load(f)
 
-data = load_data()
+# Load both data files
+story_data = load_json("story.json")
+char_images = load_json("characters.json")
 
-# --- 2. INITIALIZE GLOBAL STATE ---
+# --- 2. INITIALIZE SESSION STATE ---
 if "stats" not in st.session_state:
     st.session_state.stats = {
-        "xp": 0, "magic": 50, "max_magic": 50, "suspicion": 0,
-        "scene": "start",
-        "view_mode": "GAME",
-        "selected_npc": None
+        "xp": 0, "magic": 50, "max_magic": 100, "suspicion": 0,
+        "scene": "start", "view_mode": "GAME", "selected_npc": None
     }
-    # Load NPC data from JSON into session state so it persists
-    if "npc_data" not in st.session_state:
-        st.session_state.npc_data = data["npcs"]
+    # Clone NPC data into session so changes persist
+    st.session_state.npc_data = story_data["npcs"]
 
-# --- 3. SIDEBAR ---
+# --- 3. SIDEBAR (The Stats Bar) ---
 with st.sidebar:
-    st.title("🧙‍♂️ Character Sheet")
+    st.title("🧙‍♂️ Mage Quest")
     lvl = (st.session_state.stats["xp"] // 10) + 1
     st.metric("Level", lvl)
-    st.write(f"✨ Magic: {st.session_state.stats['magic']}")
+    st.write(f"✨ Magic: {st.session_state.stats['magic']}/{st.session_state.stats['max_magic']}")
     st.write(f"🕵️ Suspicion: {st.session_state.stats['suspicion']}")
     
+    st.divider()
     if st.button("👥 NPC Journal", use_container_width=True):
         st.session_state.stats["view_mode"] = "NPC_LIST"
         st.rerun()
@@ -40,42 +40,46 @@ with st.sidebar:
 
 # --- 4. ENGINE LOGIC ---
 
-# VIEW: NPC LIST
+# MODE: NPC LIST
 if st.session_state.stats["view_mode"] == "NPC_LIST":
     if st.button("🔙 Back to Game"):
         st.session_state.stats["view_mode"] = "GAME"
         st.rerun()
-    st.header("Characters Met")
+    st.header("Journal")
     for npc_id in st.session_state.npc_data.keys():
-        name = st.session_state.npc_data[npc_id].get("name", npc_id)
-        if st.button(name, key=f"btn_{npc_id}", use_container_width=True):
+        npc = st.session_state.npc_data[npc_id]
+        if st.button(npc.get("name", npc_id), key=f"list_{npc_id}", use_container_width=True):
             st.session_state.stats["selected_npc"] = npc_id
             st.session_state.stats["view_mode"] = "NPC_DETAIL"
             st.rerun()
 
-# VIEW: NPC DETAIL
+# MODE: NPC DETAIL
 elif st.session_state.stats["view_mode"] == "NPC_DETAIL":
     if st.button("🔙 Back to List"):
         st.session_state.stats["view_mode"] = "NPC_LIST"
         st.rerun()
-    npc = st.session_state.npc_data[st.session_state.stats["selected_npc"]]
-    st.header(npc["name"])
-    st.image(npc["images"][npc["current_mood"]], width=300)
+    
+    npc_id = st.session_state.stats["selected_npc"]
+    npc = st.session_state.npc_data[npc_id]
+    
+    st.header(npc.get("name", npc_id))
+    
+    # PULL IMAGE FROM CHARACTERS.JSON
+    mood = npc["current_mood"]
+    img_path = char_images.get(npc_id, {}).get(mood, "assets/placeholder.png")
+    st.image(img_path, width=300)
+    
     st.write(npc["bio"])
     st.write("---")
     for s_name, s_val in npc["stats"].items():
-        st.write(f"**{s_name.title()}:** {s_val}")
+        st.write(f"**{s_name.replace('_', ' ').title()}:** {s_val}")
 
-# VIEW: MAIN GAME
+# MODE: MAIN GAME
 else:
     scene_key = st.session_state.stats["scene"]
-    if scene_key not in data["story"]:
-        st.error(f"Scene '{scene_key}' not found!")
-        scene_key = "start"
-    
-    current = data["story"][scene_key]
-    
-    # Display Media
+    current = story_data["story"].get(scene_key, story_data["story"]["start"])
+
+    # 1. Media Display
     if current.get("is_video"):
         st.video(current["media"], autoplay=True, loop=True, muted=True)
     else:
@@ -83,25 +87,23 @@ else:
 
     st.write(f"### {current['text']}")
 
-    # Display Options
-    for i, option in enumerate(current["options"]):
-        # Unique key for every button to prevent Streamlit errors
-        if st.button(option["label"], key=f"opt_{scene_key}_{i}", use_container_width=True):
+    # 2. Options Display
+    for i, opt in enumerate(current["options"]):
+        if st.button(opt["label"], key=f"btn_{scene_key}_{i}", use_container_width=True):
             # Update Player
-            st.session_state.stats["xp"] += option.get("xp", 0)
-            st.session_state.stats["magic"] += option.get("magic", 0)
-            st.session_state.stats["suspicion"] += option.get("suspicion", 0)
+            st.session_state.stats["xp"] += opt.get("xp", 0)
+            st.session_state.stats["magic"] += opt.get("magic", 0)
+            st.session_state.stats["suspicion"] += opt.get("suspicion", 0)
             
             # Update NPC if specified
-            if "npc" in option:
-                npc_id = option["npc"]
-                stat = option["stat_change"]
-                val = option["val"]
-                st.session_state.npc_data[npc_id]["stats"][stat] += val
+            if "npc" in opt:
+                target_npc = opt["npc"]
+                stat = opt["stat_change"]
+                st.session_state.npc_data[target_npc]["stats"][stat] += opt["val"]
                 
-                # Check for mood change
-                if st.session_state.npc_data[npc_id]["stats"].get("mind_altered", 0) > 5:
-                    st.session_state.npc_data[npc_id]["current_mood"] = "altered"
+                # Logic: Update mood based on stat
+                if st.session_state.npc_data[target_npc]["stats"].get("mind_altered", 0) > 5:
+                    st.session_state.npc_data[target_npc]["current_mood"] = "dazed"
 
-            st.session_state.stats["scene"] = option["target"]
+            st.session_state.stats["scene"] = opt["target"]
             st.rerun()
