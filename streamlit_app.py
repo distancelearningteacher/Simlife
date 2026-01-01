@@ -8,7 +8,7 @@ st.set_page_config(page_title="My Adventure", layout="centered")
 story = {
     "start": {
         "text": "You stand before a massive stone door in the Godot Forest.",
-        "image": "https://placekitten.com/800/400", # Replace with your URL or local path
+        "image": "https://porngipfy.com/wp-content/uploads/2018/09/august-ames_001.gif", # Replace with your URL or local path
         "options": [
             {"label": "Push the door", "target": "cave"},
             {"label": "Search the bushes", "target": "item_found"},
