@@ -19,6 +19,8 @@ if "stats" not in st.session_state:
         "magic": 50, 
         "max_magic": 50, 
         "suspicion": 0,
+        "mental": 0,
+        "physical": 0,
         "scene": "start",
         "view_mode": "GAME",  # Modes: "GAME", "NPC_LIST", "NPC_DETAIL"
         "selected_npc": None
