@@ -2,38 +2,137 @@ import streamlit as st
 import json
 import os
 
-# --- 1. SETUP & DATA ---
+# --- 1. SETUP & DATA LOADING ---
 st.set_page_config(page_title="Mage Quest", layout="centered")
 
 def load_data():
     with open("story.json", "r") as f:
         return json.load(f)
 
+# Load the single JSON file that contains both 'story' and 'npcs'
 data = load_data()
 
-# --- 2. INITIALIZE STATE ---
+# --- 2. INITIALIZE GLOBAL STATE (The "Autoload") ---
 if "stats" not in st.session_state:
     st.session_state.stats = {
-        "xp": 0, "magic": 50, "max_magic": 50, "suspicion": 0,
+        "xp": 0, 
+        "magic": 50, 
+        "max_magic": 50, 
+        "suspicion": 0,
         "scene": "start",
-        "view_mode": "GAME",  # Can be "GAME", "NPC_LIST", or "NPC_DETAIL"
+        "view_mode": "GAME",  # Modes: "GAME", "NPC_LIST", "NPC_DETAIL"
         "selected_npc": None
     }
+    # Initialize NPC stats in session state so they persist during the session
+    if "npc_data" not in st.session_state:
+        st.session_state.npc_data = data["npcs"]
 
-# --- 3. SIDEBAR MENU ---
+# Shortcut for level calculation
+current_level = (st.session_state.stats["xp"] // 10) + 1
+
+# --- 3. SIDEBAR (The Collapsing Bar) ---
 with st.sidebar:
-    st.title("📜 Game Menu")
+    st.title("🧙‍♂️ Character Sheet")
+    st.metric("Level", current_level)
+    
+    st.write(f"XP: {st.session_state.stats['xp'] % 10} / 10")
+    st.progress((st.session_state.stats["xp"] % 10) / 10)
+    
+    st.divider()
+    st.write(f"✨ Magic: {st.session_state.stats['magic']} / {st.session_state.stats['max_magic']}")
+    st.write(f"🕵️ Suspicion: {st.session_state.stats['suspicion']}")
+    
+    st.divider()
     if st.button("👥 NPC Journal", use_container_width=True):
         st.session_state.stats["view_mode"] = "NPC_LIST"
         st.rerun()
-    
-    st.divider()
-    st.write(f"✨ Magic: {st.session_state.stats['magic']}")
-    st.write(f"🕵️ Suspicion: {st.session_state.stats['suspicion']}")
 
-# --- 4. TOP NAVIGATION (Return Button) ---
-if st.session_state.stats["view_mode"] != "GAME":
+    if st.button("♻️ Reset Game", use_container_width=True):
+        st.session_state.clear()
+        st.rerun()
+
+# --- 4. NAVIGATION LOGIC (The Switcher) ---
+
+# Mode: NPC LIST
+if st.session_state.stats["view_mode"] == "NPC_LIST":
     col1, col2 = st.columns([4, 1])
+    col2.button("🔙", on_click=lambda: st.session_state.stats.update({"view_mode": "GAME"}))
+    
+    st.header("Characters Met")
+    for npc_name in st.session_state.npc_data.keys():
+        if st.button(npc_name, use_container_width=True):
+            st.session_state.stats["selected_npc"] = npc_name
+            st.session_state.stats["view_mode"] = "NPC_DETAIL"
+            st.rerun()
+
+# Mode: NPC DETAIL
+elif st.session_state.stats["view_mode"] == "NPC_DETAIL":
+    col1, col2 = st.columns([4, 1])
+    col2.button("🔙", on_click=lambda: st.session_state.stats.update({"view_mode": "NPC_LIST"}))
+    
+    npc_name = st.session_state.stats["selected_npc"]
+    npc = st.session_state.npc_data[npc_name]
+    
+    st.header(npc_name)
+    mood = npc["current_mood"]
+    st.image(npc["images"][mood], width=300)
+    st.write(npc["bio"])
+    
+    # Display NPC Stats
+    st.write("---")
+    for s_name, s_val in npc["stats"].items():
+        st.write(f"**{s_name.title()}:** {s_val}")
+
+# Mode: MAIN GAME
+else:
+    scene_key = st.session_state.stats["scene"]
+    # Ensure scene exists to prevent KeyError
+    if scene_key not in data["story"]:
+        st.error(f"Scene '{scene_key}' not found!")
+        if st.button("Emergency Return to Start"):
+            st.session_state.stats["scene"] = "start"
+            st.rerun()
+    else:
+        current = data["story"][scene_key]
+
+        # 1. DISPLAY MEDIA
+        media_path = current["media"]
+        if media_path.endswith(".mp4"):
+            st.video(media_path, autoplay=True, loop=True, muted=True)
+        else:
+            st.image(media_path, use_container_width=True)
+
+        # 2. DISPLAY TEXT
+        st.write(f"### {current['text']}")
+
+        # 3. DISPLAY OPTIONS
+        for option in current["options"]:
+            # Logic for conditional options (Requirement Check)
+            can_afford = True
+            if "req_magic" in option and st.session_state.stats["magic"] < option["req_magic"]:
+                can_afford = False
+
+            btn_label = option["label"] if can_afford else f"🔒 {option['label']} (Need {option.get('req_magic')} Magic)"
+            
+            if st.button(btn_label, use_container_width=True, disabled=not can_afford):
+                # Update Player Stats
+                st.session_state.stats["xp"] += option.get("xp", 0)
+                st.session_state.stats["magic"] += option.get("magic", 0)
+                st.session_state.stats["suspicion"] += option.get("suspicion", 0)
+                
+                # Update NPC Stats
+                if "npc" in option:
+                    n_target = option["npc"]
+                    s_target = option["stat_change"]
+                    st.session_state.npc_data[n_target]["stats"][s_target] += option["val"]
+                    
+                    # Check for Mood Evolution
+                    if st.session_state.npc_data[n_target]["stats"].get("mind_altered", 0) > 5:
+                        st.session_state.npc_data[n_target]["current_mood"] = "altered"
+
+                # Move to next scene
+                st.session_state.stats["scene"] = option["target"]
+                st.rerun()
     with col2:
         if st.button("🔙 Back"):
             st.session_state.stats["view_mode"] = "GAME"
