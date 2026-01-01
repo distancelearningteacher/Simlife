@@ -1,0 +1,13 @@
+{
+  "Step-Mom": {
+    "neutral": "assets/mom_neutral.png",
+    "happy": "assets/mom_smiling.png",
+    "dazed": "assets/mom_mind_altered.png",
+    "angry": "assets/mom_upset.png"
+  },
+  "Neighbor": {
+    "neutral": "assets/neighbor_jogging.png",
+    "surprised": "assets/neighbor_shocked.png",
+    "mind_controlled": "assets/neighbor_eyes_glowing.png"
+  }
+}
