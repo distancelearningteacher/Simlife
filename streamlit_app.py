@@ -11,7 +11,7 @@ if "stats" not in st.session_state:
         "magic": 50,
         "max_magic": 50,
         "suspicion": 0,
-        "scene": "start"
+        "scene": "room"
     }
 
 # --- 3. CALCULATE LEVEL ---
