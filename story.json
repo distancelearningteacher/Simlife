@@ -45,6 +45,11 @@
                 {"label": "☕ Coffee Shop", "target": "coffee_shop"},
                 {"label": "🧘‍♀️ Neighbor", "target": "neighbor_check"}
             ]
+        },
+        "start": {
+            "text": "Welcome to Mage Quest. Begin your journey.",
+            "media": "assets/map.jpg", "is_video": false,
+            "options": [{"label": "Start", "target": "players_room"}]
         }
     },
     "npcs": {
@@ -55,11 +60,17 @@
             "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
             "current_mood": "base"
         },
-        {
         "neighbor": {
             "name": "Sury",
-            "bio": "She seems preoccupied lately.",
+            "bio": "The girl next door.",
             "stats": {"affection": 0, "mind_altered": 0, "physical": 0},
+            "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
+            "current_mood": "base"
+        },
+        "barista": {
+            "name": "Alex",
+            "bio": "Always busy with coffee.",
+            "stats": {"affection": 0, "mind_altered": 0},
             "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
             "current_mood": "base"
         }
