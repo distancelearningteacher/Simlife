@@ -64,7 +64,7 @@
             "name": "Sury",
             "bio": "The girl next door.",
             "stats": {"affection": 0, "mind_altered": 0, "physical": 0},
-            "images": {"base": "assets/grok_image_x19cgqm.jpg", "altered": "assets/grok_image_x19cgqm.jpg"},
+            "images": {"base": "assets/grok_image_xi8ysih.jpg", "altered": "assets/grok_image_x19cgqm.jpg"},
             "current_mood": "base"
         },
         "barista": {
