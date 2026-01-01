@@ -46,8 +46,16 @@ def move_to(target):
 # Get current scene data
 current = story[st.session_state.scene]
 
-# DISPLAY: Image at the top
-st.image(current["image"], use_container_width=True)
+# --- UPDATED DISPLAY LOGIC ---
+
+# Get the file path from your story data
+media_file = current["image"] 
+
+# Check if the file is a video
+if media_file.endswith(".mp4"):
+    st.video(media_file, autoplay=True, loop=True, muted=True)
+else:
+    st.image(media_file, use_container_width=True)
 
 # DISPLAY: Text in the middle
 st.write(f"### {current['text']}")
