@@ -20,7 +20,7 @@
         },
         "neighbor_check": {
             "text": "Your neighbor has just gotten back from a jog.",
-            "media": "assets/grok_image_x19cgqm.jpg", "is_video": false,
+            "media": "assets/grok_image_xi8ysih.jpg", "is_video": false,
             "options": [
                 {"label": "💬 Talk", "target": "neighbor_talk", "xp": 1},
                 {"label": "🧠 Alter Mind", "target": "neighbor_check", "npc": "neighbor", "stat_change": "mind_altered", "val": 1, "suspicion": 5},
