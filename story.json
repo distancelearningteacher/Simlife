@@ -31,7 +31,7 @@
     "npcs": {
         "Step-Mom": {
             "bio": "She seems preoccupied lately.",
-            "stats": {"affection": 0, "mind_altered": 0},
+            "stats": {"affection": 0, "mind_altered": 0, "physical": 0},
             "images": {"base": "mom_neutral.png", "altered": "mom_dazed.png"},
             "current_mood": "base"
         }
