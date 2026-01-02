@@ -7,7 +7,7 @@
   },
   "Neighbor": {
     "neutral": "assets/grok_image_xi8ysih.jpg",
-    "surprised": "assets/neighbor_shocked.png",
-    "mind_controlled": "assets/neighbor_eyes_glowing.png"
+    "surprised": "assets/grok_image_xi8ysih.jpg",
+    "mind_controlled": "assets/grok_image_xi8ysih.jpg"
   }
 }
