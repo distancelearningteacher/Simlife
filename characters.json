@@ -1,13 +1,13 @@
 {
   "Step-Mom": {
-    "neutral": "assets/grok_image_x19cgqm.jpg",
-    "happy": "assets/mom_smiling.png",
-    "dazed": "assets/mom_mind_altered.png",
-    "angry": "assets/mom_upset.png"
+    "neutral": "assets/step_mom_neutral.jpg",
+    "happy": "assets/step_mom_neutral.jpg",
+    "dazed": "assets/step_mom_neutral.jpg",
+    "angry": "assets/step_mom_neutral.jpg"
   },
   "Neighbor": {
-    "neutral": "assets/grok_image_xi8ysih.jpg",
-    "surprised": "assets/grok_image_xi8ysih.jpg",
-    "mind_controlled": "assets/grok_image_xi8ysih.jpg"
+    "neutral": "assets/neighbor_neutral.jpg",
+    "surprised": "assets/neighbor_neutral.jpg",
+    "mind_controlled": "assets/neighbor_neutral.jpg"
   }
 }
