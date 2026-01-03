@@ -2,16 +2,16 @@
     "story": {
         "start": {
             "text": "Welcome to Mage Quest. Your journey begins in your room.",
-            "media": "assets/neighbor.mp4",
-            "is_video": true,
+            "media": "assets/compass.png",
+            "is_video": false,
             "options": [
                 {"label": "Begin", "target": "players_room"}
             ]
         },
         "players_room": {
             "text": "Your sanctuary. You feel your magical power thrumming.",
-            "media": "assets/neighbor.mp4",
-            "is_video": true,
+            "media": "assets/player_room.png",
+            "is_video": false,
             "options": [
                 {"label": "✨ Alter Mind (Self)", "target": "players_room", "xp": 5, "magic": -10},
                 {"label": "💤 Sleep", "target": "players_room", "magic": 50},
@@ -20,7 +20,7 @@
         },
         "step_mom_check": {
             "text": "Your step-mom is busy in the kitchen.",
-            "media": "assets/grok_image_x19cgqm.jpg",
+            "media": "assets/step_mom_neutral.jpg",
             "is_video": false,
             "options": [
                 {"label": "🧠 Alter Mind", "target": "step_mom_check", "npc": "Step-Mom", "stat_change": "mind_altered", "val": 1, "magic": -5, "suspicion": 2},
@@ -29,8 +29,8 @@
         },
         "map_screen": {
             "text": "Where will you go today?",
-            "media": "assets/neighbor.mp4",
-            "is_video": true,
+            "media": "assets/compass.jpg",
+            "is_video": false,
             "options": [
                 {"label": "🏠 Home", "target": "players_room"},
                 {"label": "👩 Step-Mom", "target": "step_mom_check"},
