@@ -39,7 +39,7 @@
         }
     },
     "npcs": {
-        "Step-Mom": {
+        "step-mom": {
             "name": "Kim",
             "bio": "Your step-mother. She seems focused on chores.",
             "stats": {"affection": 0, "mind_altered": 0},
