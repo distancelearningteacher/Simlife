@@ -80,12 +80,22 @@ else:
     current = story_data["story"].get(scene_key, story_data["story"]["start"])
 
     # 1. Media Display
-    if current.get("is_video"):
-        st.video(current["media"], autoplay=True, loop=True, muted=True)
-    else:
-        st.image(current["media"], use_container_width=True)
+    media = current.get("media")
 
-    st.write(f"### {current['text']}")
+    if not media:
+        st.image("assets/placeholder.png", use_container_width=True)
+    
+    elif current.get("is_video"):
+        st.video(media, autoplay=True, loop=True, muted=True)
+    
+    elif isinstance(media, str) and media.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
+        if os.path.exists(media):
+            st.image(media, use_container_width=True)
+        else:
+            st.image("assets/placeholder.png", use_container_width=True)
+    
+    else:
+        st.warning("⚠️ Invalid media format for this scene.")
 
     # 2. Options Display
     for i, opt in enumerate(current["options"]):
