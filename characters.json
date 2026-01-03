@@ -1,11 +1,11 @@
 {
-  "Step-Mom": {
+  "step-mom": {
     "neutral": "assets/step_mom_neutral.jpg",
     "happy": "assets/step_mom_neutral.jpg",
     "dazed": "assets/step_mom_neutral.jpg",
     "angry": "assets/step_mom_neutral.jpg"
   },
-  "Neighbor": {
+  "neighbor": {
     "neutral": "assets/neighbor_neutral.jpg",
     "surprised": "assets/neighbor_neutral.jpg",
     "mind_controlled": "assets/neighbor_neutral.jpg"
