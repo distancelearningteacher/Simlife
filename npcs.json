@@ -1,0 +1,21 @@
+{
+  "elara_the_alchemist": {
+    "name": "Elara",
+    "relationship": 15,
+    "isMet": true,
+    "currentLocation": "town_square",
+    "media": {
+      "default": "/assets/npcs/elara_neutral.jpg",
+      "happy": "/assets/npcs/elara_smiling.jpg"
+    },
+    "flavorText": {
+      "low_rel": "Elara eyes you suspiciously over her bubbling cauldron.",
+      "high_rel": "Elara smiles warmly as you enter, already reaching for your favorite tonic."
+    },
+    "options": [
+      { "text": "Trade Ingredients", "nextScene": "trading_menu" },
+      { "text": "Offer Gift", "onSelect": "open_gift_inventory" },
+      { "text": "Leave", "nextScene": "town_square" }
+    ]
+  }
+}
