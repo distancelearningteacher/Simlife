@@ -1,0 +1,25 @@
+{
+  "characters": {
+    "heroine": {
+      "name": "Aiko",
+      "expressions": {
+        "normal": "aiko_normal.png",
+        "happy": "aiko_happy.png",
+        "smile": "aiko_smile.png",
+        "curious": "aiko_curious.png",
+        "sad": "aiko_sad.png",
+        "angry": "aiko_angry.png"
+      },
+      "defaultExpression": "normal",
+      "positions": {
+        "left": { "x": 100, "y": 0 },
+        "center": { "x": 400, "y": 0 },
+        "right": { "x": 700, "y": 0 }
+      }
+    },
+    "protagonist": {
+      "name": "You",
+      "hidden": true
+    }
+  }
+}
