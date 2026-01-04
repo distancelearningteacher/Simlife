@@ -1,9 +1,9 @@
 {
-  "backgrounds": [
-    "assets/dorm_room.png",
+  "backgrounds": {
+    "dorm room": "assets/dorm_room.png",
     "assets/dorm_room.png",
     "assets/dorm_room.png",
     "assets/dorm_room.png",
     "assets/dorm_room.png"
-  ]
+  }
 }
