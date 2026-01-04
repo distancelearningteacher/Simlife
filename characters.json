@@ -3,12 +3,12 @@
     "heroine": {
       "name": "Aiko",
       "expressions": {
-        "normal": "aiko_normal.png",
-        "happy": "aiko_happy.png",
-        "smile": "aiko_smile.png",
-        "curious": "aiko_curious.png",
-        "sad": "aiko_sad.png",
-        "angry": "aiko_angry.png"
+        "normal": "assets/compass.png",
+        "happy": "assets/compass.png",
+        "smile": "assets/compass.png",
+        "curious": "assets/compass.png",
+        "sad": "assets/compass.png",
+        "angry": "assets/compass.png"
       },
       "defaultExpression": "normal",
       "positions": {
