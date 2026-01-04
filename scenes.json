@@ -1,30 +1,60 @@
 {
-  "bedroom": {
-    "title": "Player's Bedroom",
-    "type": "image",
-    "mediaUrl": "/assets/locations/bedroom.jpg",
-    "description": "The sunlight filters through the dust motes. It is quiet here.",
-    "options": [
-      { "text": "Meditate", "onSelect": "restore_mana", "nextScene": "bedroom" },
-      { "text": "Rest", "nextScene": "rest_sequence" },
-      { "text": "Travel", "nextScene": "travel_menu" }
-    ]
-  },
-  "rest_sequence": {
-    "title": "Sleeping",
-    "type": "video",
-    "mediaUrl": "/assets/videos/day_night_cycle.mp4",
-    "description": "Time passes as you recover your strength.",
-    "options": [
-      { "text": "Wake Up", "nextScene": "bedroom", "onSelect": "new_day_reset" }
-    ]
-  },
-  "travel_menu": {
-    "title": "World Map",
-    "type": "image",
-    "mediaUrl": "/assets/ui/map.jpg",
-    "description": "Where would you like to go?",
-    "isDynamic": true,
-    "dynamicType": "location_list"
+  "scenes": {
+    "start": {
+      "background": "classroom_day.jpg",
+      "music": "calm_school_bgm.mp3",
+      "characters": [
+        {
+          "id": "heroine",
+          "expression": "happy",
+          "position": "center"
+        }
+      ],
+      "text": "You enter the classroom on the first day of the new semester.",
+      "choices": [
+        {
+          "text": "Greet her cheerfully",
+          "nextScene": "greet_cheerful"
+        },
+        {
+          "text": "Nod silently",
+          "nextScene": "greet_silent"
+        }
+      ]
+    },
+    "greet_cheerful": {
+      "background": "classroom_day.jpg",
+      "characters": [
+        {
+          "id": "heroine",
+          "expression": "smile",
+          "position": "center"
+        }
+      ],
+      "text": "Heroine: \"Good morning! You seem energetic today~\"",
+      "nextScene": "continue_day"
+    },
+    "greet_silent": {
+      "background": "classroom_day.jpg",
+      "characters": [
+        {
+          "id": "heroine",
+          "expression": "curious",
+          "position": "center"
+        }
+      ],
+      "text": "Heroine: \"...Good morning. You're quiet as always.\"",
+      "nextScene": "continue_day"
+    },
+    "continue_day": {
+      "background": "classroom_day.jpg",
+      "text": "The school day continues peacefully...",
+      "autoAdvance": 3000,
+      "nextScene": "end"
+    },
+    "end": {
+      "text": "To be continued...",
+      "endGame": true
+    }
   }
 }
