@@ -1,0 +1,30 @@
+{
+  "bedroom": {
+    "title": "Player's Bedroom",
+    "type": "image",
+    "mediaUrl": "/assets/locations/bedroom.jpg",
+    "description": "The sunlight filters through the dust motes. It is quiet here.",
+    "options": [
+      { "text": "Meditate", "onSelect": "restore_mana", "nextScene": "bedroom" },
+      { "text": "Rest", "nextScene": "rest_sequence" },
+      { "text": "Travel", "nextScene": "travel_menu" }
+    ]
+  },
+  "rest_sequence": {
+    "title": "Sleeping",
+    "type": "video",
+    "mediaUrl": "/assets/videos/day_night_cycle.mp4",
+    "description": "Time passes as you recover your strength.",
+    "options": [
+      { "text": "Wake Up", "nextScene": "bedroom", "onSelect": "new_day_reset" }
+    ]
+  },
+  "travel_menu": {
+    "title": "World Map",
+    "type": "image",
+    "mediaUrl": "/assets/ui/map.jpg",
+    "description": "Where would you like to go?",
+    "isDynamic": true,
+    "dynamicType": "location_list"
+  }
+}
