@@ -1,0 +1,12 @@
+{
+  "name": "Jon",
+  "stats": {
+    "mana": 5,
+    "max_mana": 5,
+    "cash": 100,
+    "energy": 100,
+    "corruption": 0
+  },
+  "inventory": ["Old Wand", "Bread"],
+  "unlockedLocations": ["bedroom", "home", "coffee shop"]
+}
