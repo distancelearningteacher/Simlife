@@ -1,0 +1,15 @@
+{
+  "gameTitle": "My First Visual Novel",
+  "version": "0.1.0",
+  "textSpeed": 50,
+  "autoAdvanceDefault": 4000,
+  "defaultFont": "Arial",
+  "textColor": "#ffffff",
+  "nameBoxColor": "#333333cc",
+  "textBoxOpacity": 0.8,
+  "saveSlots": 6,
+  "resolution": {
+    "width": 1280,
+    "height": 720
+  }
+}
